@@ -1,0 +1,27 @@
+{
+  "name": "lingui",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "pnpm clean && ./build.js && tsc",
+    "build:with-deps": "./build.js --with-deps",
+    "clean": "rm -rf types && rm -rf dist",
+    "dev": "./build.js --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "esbuild": "^0.25.9",
+    "esbuild-node-externals": "^1.18.0",
+    "typescript": "^5.9.2"
+  }
+}
