@@ -1,6 +1,6 @@
-import type { Replaces } from "./types";
-import Selector from "./Selector";
-import L10n from "./L10n";
+import L10n from './L10n';
+import Selector from './Selector';
+import type { Replaces } from './types';
 
 export default class Translator {
   /**
@@ -8,9 +8,7 @@ export default class Translator {
    */
   protected selector: Selector;
 
-  constructor(
-    protected l10n: L10n
-  ) {
+  constructor(protected l10n: L10n) {
     this.selector = new Selector();
   }
 
@@ -38,10 +36,7 @@ export default class Translator {
       replaces.count = number;
     }
 
-    return this.makeReplacements(
-      this.selector.choose(text, number, currentLocale),
-      replaces
-    );
+    return this.makeReplacements(this.selector.choose(text, number, currentLocale), replaces);
   }
 
   /**
@@ -66,48 +61,40 @@ export default class Translator {
   }
 
   private getByKey(key: string, localeData: object) {
-    const getUsingRegExp = (regExp: RegExp) => (
+    const getUsingRegExp = (regExp: RegExp) =>
       String.prototype.split
         .call(key, regExp)
         .filter(Boolean)
-        .reduce(
-          (res: any, key: string) =>
-            ((res !== null && res !== undefined)
-              ? res[key]
-              : res),
-            localeData
-        )
-    );
+        .reduce((res: any, key: string) => (res !== null && res !== undefined ? res[key] : res), localeData);
     const result = getUsingRegExp(/[,[\]]+?/) || getUsingRegExp(/[,[\].]+?/);
 
-    return (result === undefined || result === localeData) ? undefined : result;
+    return result === undefined || result === localeData ? undefined : result;
   }
 
   /**
    * Make placeholder replacements in given message.
    */
   private makeReplacements(text: string, replaces: Replaces) {
-    const replacements = Object.keys(replaces)
-      .sort((a, b) => (b.length - a.length));
+    const replacements = Object.keys(replaces).sort((a, b) => b.length - a.length);
 
-      replacements.forEach((placeholder) => {
-        const pattern = new RegExp(`:${placeholder}`, 'gi');
-        text = text.replace(pattern, (match) => {
-          const value = replaces[placeholder] as string;
-          const isUpper = match === match.toUpperCase();
+    replacements.forEach((placeholder) => {
+      const pattern = new RegExp(`:${placeholder}`, 'gi');
+      text = text.replace(pattern, (match) => {
+        const value = replaces[placeholder] as string;
+        const isUpper = match === match.toUpperCase();
 
-          if (isUpper) {
-            return value.toUpperCase();
-          }
+        if (isUpper) {
+          return value.toUpperCase();
+        }
 
-          const isCap = match === match.replace(/\w/i, (l) => l.toUpperCase());
+        const isCap = match === match.replace(/\w/i, (l) => l.toUpperCase());
 
-          if (isCap) {
-            return value.charAt(0).toUpperCase() + value.slice(1);
-          }
+        if (isCap) {
+          return value.charAt(0).toUpperCase() + value.slice(1);
+        }
 
-          return value;
-        });
+        return value;
+      });
     });
 
     return text;

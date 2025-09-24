@@ -1,8 +1,8 @@
-import type { InitOptions, Module, Replaces } from './types';
 import defaults from './defaults';
+import EventEmitter from './EventEmitter';
 import L10n from './L10n';
 import Translator from './Translator';
-import EventEmitter from './EventEmitter';
+import type { InitOptions, Module, Replaces } from './types';
 
 class Lingui extends EventEmitter {
   initialized: boolean = false;
@@ -15,15 +15,13 @@ class Lingui extends EventEmitter {
   /**
    * The translator service.
    */
-  translator!:Translator;
+  translator!: Translator;
 
   protected modules: {
-    external: Module[],
+    external: Module[];
   };
 
-  constructor(
-    protected options = {}
-  ) {
+  constructor(protected options = {}) {
     super();
 
     this.modules = { external: [] };
@@ -44,13 +42,13 @@ class Lingui extends EventEmitter {
     this.options = {
       ...defaults,
       ...this.options,
-      ...options
+      ...options,
     };
 
     this.l10n = new L10n(options.resources, this.options);
     this.translator = new Translator(this.l10n);
 
-    this.modules.external.forEach(m => {
+    this.modules.external.forEach((m) => {
       if (m.init) m.init(this);
     });
 

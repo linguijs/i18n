@@ -1,5 +1,5 @@
-import type { Resources } from "./types";
-import EventEmitter from "./EventEmitter";
+import EventEmitter from './EventEmitter';
+import type { Resources } from './types';
 
 export default class L10n extends EventEmitter {
   protected locale: string;
@@ -8,8 +8,8 @@ export default class L10n extends EventEmitter {
   constructor(
     protected data: Resources,
     protected options: {
-      locale?: string,
-      fallbackLocale?: string,
+      locale?: string;
+      fallbackLocale?: string;
     } = {},
   ) {
     super();

@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+types/
+
+# Files we don't want to format
+pnpm-lock.yaml
+*.lock
+*.md

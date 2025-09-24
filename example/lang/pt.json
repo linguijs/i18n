@@ -8,5 +8,5 @@
     "apples": "{0} Não há nenhuma|[1,19] Há algumas|[20,*] Há muitas"
   },
   "Hello :Name. Welcome back!": "Olá :Name. Bem-vindo de volta!",
-  "There is one apple|There are many apples":  "Há uma maçã|Há várias maçãs"
+  "There is one apple|There are many apples": "Há uma maçã|Há várias maçãs"
 }

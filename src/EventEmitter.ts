@@ -1,6 +1,6 @@
 class EventEmitter {
   private observers: {
-    [event: string]: Map<Function, number>
+    [event: string]: Map<Function, number>;
   };
 
   constructor() {

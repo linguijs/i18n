@@ -1,0 +1,28 @@
+* text=auto eol=lf
+
+# Diffs
+*.blade.php diff=html
+*.css       diff=css
+*.html      diff=html
+*.md        diff=markdown
+*.php       diff=php
+
+# Lock files
+package-lock.json merge=ours
+composer.lock     merge=ours
+
+# Ignore directories
+/.github        export-ignore
+/tests          export-ignore
+/docs           export-ignore
+/examples       export-ignore
+
+# Ignore files
+/.editorconfig      export-ignore
+/.gitignore         export-ignore
+/.gitattributes     export-ignore
+/.prettierignore    export-ignore
+/prettier.config.js export-ignore
+/build.js           export-ignore
+/tsconfig.json      export-ignore
+/phpunit.xml        export-ignore

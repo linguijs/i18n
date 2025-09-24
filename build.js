@@ -20,7 +20,7 @@ const config = {
           if (count++ !== 0) {
             console.log(`Rebuilding ${build.initialOptions.entryPoints} (${build.initialOptions.format})…`);
           }
-        })
+        });
       },
     },
   ],

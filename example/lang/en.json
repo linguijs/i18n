@@ -5,6 +5,6 @@
     "throttle": "Too many login attempts. Please try again in :seconds seconds."
   },
   "messages": {
-    "apples": "{0} There are none|[1,19] There are some :count |[20,*] There are many :count and above"
+    "apples": "{0} There are none|[1,19] There are some|[20,*] There are many"
   }
 }

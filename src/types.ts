@@ -1,15 +1,15 @@
-export type Replaces = Record<string, string|number>;
+export type Replaces = Record<string, string | number>;
 
 type NestedLocaleData = {
-  [key: string]: string | NestedLocaleData
+  [key: string]: string | NestedLocaleData;
 };
 
 export type LocaleData = {
-  [key: string]: string | NestedLocaleData
+  [key: string]: string | NestedLocaleData;
 };
 
 export type Resources = {
-  [locale: string]: LocaleData
+  [locale: string]: LocaleData;
 };
 
 export interface InitOptions {
@@ -29,9 +29,9 @@ export interface InitOptions {
    * Resources to initialize with.
    */
   resources: Resources;
-};
+}
 
 export interface Module {
-  type: '3rdParty' | string,
-  init?: (...args: any[]) => void
-};
+  type: '3rdParty' | string;
+  init?: (...args: any[]) => void;
+}

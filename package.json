@@ -16,12 +16,15 @@
     "build": "pnpm clean && ./build.js && tsc",
     "build:with-deps": "./build.js --with-deps",
     "clean": "rm -rf types && rm -rf dist",
-    "dev": "./build.js --watch"
+    "dev": "./build.js --watch",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/node": "^24.5.2",
     "esbuild": "^0.25.9",
     "esbuild-node-externals": "^1.18.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "^5.9.2"
   }
 }

@@ -1,0 +1,43 @@
+name: linter
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.ts'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.ts'
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Install dependencies
+        run: |
+          pnpm install
+
+      - name: Format code
+        run: pnpm run format
+
+      - name: Commit linted changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Fix code style'
+          commit_options: '--no-verify'

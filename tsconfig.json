@@ -23,11 +23,7 @@
     "removeComments": false,
     "typeRoots": ["./node_modules/@types"],
     "strict": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
-  "exclude": [
-    "./example",
-    "./types",
-    "./dist"
-  ]
+  "exclude": ["./example", "./types", "./dist"]
 }
