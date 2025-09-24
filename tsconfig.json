@@ -26,6 +26,8 @@
     "skipLibCheck": true,
   },
   "exclude": [
-    "example"
+    "./example",
+    "./types",
+    "./dist"
   ]
 }

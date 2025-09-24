@@ -31,8 +31,6 @@ console.log(
 
 setLocale('en');
 
-console.log('currentLocale', currentLocale()); // 'en'
-
 console.log(
   choice('There is one apple|There are many apples', 1) // Should return 'Há uma maçã'
 );
