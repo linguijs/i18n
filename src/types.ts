@@ -30,3 +30,8 @@ export interface InitOptions {
    */
   resources: Resources;
 };
+
+export interface Module {
+  type: '3rdParty' | string,
+  init?: (...args: any[]) => void
+};

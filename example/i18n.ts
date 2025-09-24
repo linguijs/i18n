@@ -1,11 +1,18 @@
 import en from './lang/en.json';
 import pt from './lang/pt.json';
 import lingui, { __, choice, setLocale, currentLocale } from '../src';
+import { exampleOfModule } from './exampleOfModule';
 
-lingui.init({
-  locale: 'pt',
-  resources: { en, pt }
-})
+lingui
+  .use(exampleOfModule)
+  .init({
+    locale: 'pt',
+    resources: { en, pt }
+  });
+
+lingui.l10n.on('changeLocale', (locale) => {
+  console.log('locale changed to: ', locale);
+});
 
 console.log(
   __('not.exist') // Should return 'not.exist'

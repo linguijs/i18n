@@ -1,9 +1,10 @@
-import type { InitOptions, Replaces } from './types';
+import type { InitOptions, Module, Replaces } from './types';
 import defaults from './defaults';
 import L10n from './L10n';
 import Translator from './Translator';
+import EventEmitter from './EventEmitter';
 
-class Lingui {
+class Lingui extends EventEmitter {
   initialized: boolean = false;
 
   /**
@@ -16,9 +17,27 @@ class Lingui {
    */
   translator!:Translator;
 
+  protected modules: {
+    external: Module[],
+  };
+
   constructor(
     protected options = {}
   ) {
+    super();
+
+    this.modules = { external: [] };
+  }
+
+  /**
+   * The modules system.
+   */
+  use(module: Module) {
+    if (module.type === '3rdParty') {
+      this.modules.external.push(module);
+    }
+
+    return this;
   }
 
   init(options: InitOptions) {
@@ -31,7 +50,13 @@ class Lingui {
     this.l10n = new L10n(options.resources, this.options);
     this.translator = new Translator(this.l10n);
 
+    this.modules.external.forEach(m => {
+      if (m.init) m.init(this);
+    });
+
     this.initialized = true;
+
+    this.emit('initialized', this.options);
 
     return this;
   }

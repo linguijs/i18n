@@ -1,6 +1,7 @@
-import { Resources } from "./types";
+import type { Resources } from "./types";
+import EventEmitter from "./EventEmitter";
 
-export default class L10n {
+export default class L10n extends EventEmitter {
   protected locale: string;
   protected fallbackLocale: string;
 
@@ -11,6 +12,8 @@ export default class L10n {
       fallbackLocale?: string,
     } = {},
   ) {
+    super();
+
     this.locale = options.locale || this.detectLocale() || 'en';
     this.fallbackLocale = options.fallbackLocale || 'en';
   }
@@ -27,6 +30,8 @@ export default class L10n {
    */
   setLocale(locale: string) {
     this.locale = locale;
+
+    this.emit('changeLocale', this.locale);
   }
 
   /**
