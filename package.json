@@ -2,6 +2,18 @@
   "name": "lingui",
   "version": "0.1.0",
   "license": "MIT",
+  "description": "Laravel localization on JavaScript.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linguijs/lingui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/linguijs/lingui/issues"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
   "type": "module",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
