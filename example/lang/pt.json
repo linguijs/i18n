@@ -1,0 +1,12 @@
+{
+  "auth": {
+    "failed": "Estas credenciais não correspondem aos nossos registros.",
+    "password": "A senha fornecida está incorreta.",
+    "throttle": "Muitas tentativas de login. Por favor, tente novamente em :seconds segundos."
+  },
+  "messages": {
+    "apples": "{0} Não há nenhuma|[1,19] Há algumas|[20,*] Há muitas"
+  },
+  "Hello :Name. Welcome back!": "Olá :Name. Bem-vindo de volta!",
+  "There is one apple|There are many apples":  "Há uma maçã|Há várias maçãs"
+}
