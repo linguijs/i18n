@@ -3,6 +3,8 @@ import type {
   I18nOptions,
   Services,
   I18nBag,
+  Replacements,
+  TranslatableText,
 } from "./types";
 import defaults from "./defaults";
 import DataStore from "./DataStore";
@@ -11,7 +13,9 @@ import Translator from "./Translator";
 import EventEmitter from "./EventEmitter";
 
 interface I18nEvents {
-  'initialized': [options: I18nOptions]
+  'initialized': [options: I18nOptions],
+  'changingLocale': [locale: string],
+  'changedLocale': [locale: string],
 }
 
 class I18n extends EventEmitter<I18nEvents> {
@@ -28,12 +32,12 @@ class I18n extends EventEmitter<I18nEvents> {
   /**
    * Current locale.
    */
-  private locale?: string;
+  private locale!: string;
 
   /**
    * Fallback locale.
    */
-  private fallbackLocale?: FallbackLocale;
+  private fallbackLocale!: FallbackLocale;
 
   /**
    * I18n options.
@@ -72,13 +76,13 @@ class I18n extends EventEmitter<I18nEvents> {
     }
 
     this.locale = this.options.locale || this.detectLocale();
-    this.fallbackLocale = this.options.fallbackLocale;
+    this.fallbackLocale = this.options.fallbackLocale!;
 
     this.store = new DataStore(this.options.resources);
 
     const selector = new Selector();
     const i18nBag: I18nBag = {
-      fallbackLocale: this.fallbackLocale,
+      fallbackLocale: this.getFallbackLocale.bind(this),
       currentLocale: this.currentLocale.bind(this),
     };
 
@@ -88,7 +92,7 @@ class I18n extends EventEmitter<I18nEvents> {
       store: this.store,
     };
 
-    this.translator = new Translator(services, this.options);
+    this.translator = new Translator(services);
     // Pipe events from translator.
     // With this we can use `i18n.on('translatorEvent', () => {})`
     this.translator.on('*', (event, ...args) => {
@@ -113,7 +117,17 @@ class I18n extends EventEmitter<I18nEvents> {
    * Set the current locale.
    */
   setLocale(locale: string) {
-    this.locale = locale;
+    this.emit('changingLocale', locale);
+
+    if (!this.store.hasLocaleSomeTranslations(locale)) {
+      console.warn('linguijs: Was not possible to change locale due the given locale does not have translations.');
+    } else {
+      this.locale = locale;
+
+      this.emit('changedLocale', locale);
+    }
+
+    return this;
   }
 
   /**
@@ -124,11 +138,34 @@ class I18n extends EventEmitter<I18nEvents> {
   }
 
   /**
+   * Retrieves the fallback locale.
+   */
+  getFallbackLocale() {
+    return this.fallbackLocale;
+  }
+
+  /**
+   * Set the fallback locale.
+   */
+  setFallbackLocale(fallbackLocale: FallbackLocale) {
+    this.fallbackLocale = fallbackLocale;
+
+    return this;
+  }
+
+  /**
    * Translate the given message or key.
    */
-  // trans<K extends string>(key: K, replaces?: Replacements, locale?: string): K|TranslatableText<K> {
-  //   return this.translator?.translate(key, replaces, locale);
-  // }
+  trans<K extends string>(key: K, replaces?: Replacements, locale?: string): K|TranslatableText<K> {
+    return this.translator?.translate(key, replaces, locale);
+  }
+
+  /**
+   * Translate based on a number.
+   */
+  choice<K extends string>(key: K, number: number, replaces: Replacements = {}, locale?: string): K|TranslatableText<K> {
+    return this.translator?.choice(key, number, replaces, locale);
+  }
 
   /**
    * Detect locale.

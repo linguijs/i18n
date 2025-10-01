@@ -63,8 +63,8 @@ export interface Resource {
 }
 
 export type I18nBag = {
-  fallbackLocale?: FallbackLocale;
-  currentLocale: () => Maybe<string>;
+  fallbackLocale: () => FallbackLocale;
+  currentLocale: () => string;
 };
 
 export interface Services {
