@@ -5,10 +5,10 @@
   "description": "Laravel localization for your JavaScript app.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/linguijs/lingui.git"
+    "url": "https://github.com/linguijs/i18n.git"
   },
   "bugs": {
-    "url": "https://github.com/linguijs/lingui/issues"
+    "url": "https://github.com/linguijs/i18n/issues"
   },
   "files": [
     "dist",

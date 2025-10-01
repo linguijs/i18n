@@ -13,7 +13,7 @@ const config = {
   plugins: [
     ...(withDeps ? [] : [nodeExternalsPlugin()]),
     {
-      name: 'lingui',
+      name: '@linguijs/i18n',
       setup(build) {
         let count = 0;
         build.onEnd((result) => {

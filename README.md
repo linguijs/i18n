@@ -1,58 +1,37 @@
-# Lingui
+# Lingui.js i18n
+Laravel localization for your JavaScript apps.
 
-Lingui.js lets you use your Laravel localization on JavaScript.
+This is the main package for Lingui.js. You can use it to translate your Laravel localization on your JavaScript apps.
 
 ## Install
 ```bash
-npm i lingui
-
+npm i @linguijs/i18n
 ```
 
-## Setup
+## Basic usage
 ```ts
-// app.ts
-import en from './lang/en.json';
-import pt from './lang/pt.json';
+import i18n, { __ } from '@linguijs/i18n';
 
-lingui.init({
-  locale: 'pt',
-  resources: { en, pt },
+i18n.init({
+  locale: 'en', // if not defined we'll try to detect it internally.
+  resources: {
+    en: {
+      messages: {
+        welcome: 'Welcome to our application!',
+      }
+    }
+  }
 });
+// initialized and ready to go!
+// i18n is already initialized, because the translation resources where passed via init function
+document.getElementById('output').innerHTML = i18n.trans('messages.welcome');
+// or you can use the alias
+document.getElementById('output').innerHTML = __('messages.welcome');
 
 ```
 
-Then, you can use translations in any place of your application.
-```tsx
-// pages/welcome.tsx
-import { __, choice } from 'lingui';
+### Generating translations
+Please visit the [lingui-laravel](https://github.com/linguijs/lingui-laravel) repo for more informations.
 
-export default function Welcome() {
-  return (
-    <p>
-      {__('Welcome :NAME! ', { name: 'John' })}
-      {choice('{0} All clear.|{1} You have :count message to read.|[2,*] You have :count messages to read.', 5)}
-    </p>
-  );
-}
-```
-
-## API
-- `default`: Lingui singleton
-- `trans(key, replases?, locale?)`: Translate using a key or string literal with placeholders
-- `transChoice(key, number, replaces?, locale?)`: Pluralization translate based on `number` and current `locale`
-- `__`: Alias of `trans`
-- `choice`: Alias of `transChoice`
-- `setLocale(locale)`: Change the current locale
-- `currentLocale()`: Get the current locale
-
-### Modules
-```ts
-lingui
-  .use({
-    type: '3rdParty',
-    init(instance) {
-      // init hook
-    },
-  })
-  .init({ resources: { en, pt } });
-```
+## Documentation
+You can follow the same approach as [Laravel Localization](https://laravel.com/docs/12.x/localization) but for JavaScript.
