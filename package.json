@@ -1,8 +1,8 @@
 {
   "name": "@linguijs/i18n",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "license": "MIT",
-  "description": "Laravel localization for your JavaScript app.",
+  "description": "Laravel localization for your JavaScript apps.",
   "repository": {
     "type": "git",
     "url": "https://github.com/linguijs/i18n.git"
