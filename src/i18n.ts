@@ -1,21 +1,14 @@
-import type {
-  FallbackLocale,
-  I18nOptions,
-  Services,
-  I18nBag,
-  Replacements,
-  TranslatableText,
-} from "./types";
-import defaults from "./defaults";
-import DataStore from "./DataStore";
-import Selector from "./Selector";
-import Translator from "./Translator";
-import EventEmitter from "./EventEmitter";
+import DataStore from './DataStore';
+import defaults from './defaults';
+import EventEmitter from './EventEmitter';
+import Selector from './Selector';
+import Translator from './Translator';
+import type { FallbackLocale, I18nBag, I18nOptions, Replacements, Services, TranslatableText } from './types';
 
 interface I18nEvents {
-  'initialized': [options: I18nOptions],
-  'changingLocale': [locale: string],
-  'changedLocale': [locale: string],
+  initialized: [options: I18nOptions];
+  changingLocale: [locale: string];
+  changedLocale: [locale: string];
 }
 
 class I18n extends EventEmitter<I18nEvents> {
@@ -156,14 +149,19 @@ class I18n extends EventEmitter<I18nEvents> {
   /**
    * Translate the given message or key.
    */
-  trans<K extends string>(key: K, replaces?: Replacements, locale?: string): K|TranslatableText<K> {
+  trans<K extends string>(key: K, replaces?: Replacements, locale?: string): K | TranslatableText<K> {
     return this.translator?.translate(key, replaces, locale);
   }
 
   /**
    * Translate based on a number.
    */
-  choice<K extends string>(key: K, number: number, replaces: Replacements = {}, locale?: string): K|TranslatableText<K> {
+  choice<K extends string>(
+    key: K,
+    number: number,
+    replaces: Replacements = {},
+    locale?: string,
+  ): K | TranslatableText<K> {
     return this.translator?.choice(key, number, replaces, locale);
   }
 

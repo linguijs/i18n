@@ -8,7 +8,7 @@ type EnsureArgs<T> = T extends any[] ? T : any[];
 
 class EventEmitter<EventsMapped = EventMap> {
   private observers: {
-    [event: string]: Map<(...args: any[]) => void, number>
+    [event: string]: Map<(...args: any[]) => void, number>;
   };
 
   constructor() {
@@ -25,7 +25,7 @@ class EventEmitter<EventsMapped = EventMap> {
 
   on<EventName extends keyof EventsMapped & string>(
     events: EventName,
-    listener: EventListener<EnsureArgs<EventsMapped[EventName]>>
+    listener: EventListener<EnsureArgs<EventsMapped[EventName]>>,
   ) {
     events.split(' ').forEach((event) => {
       if (!this.observers[event]) this.observers[event] = new Map();
@@ -38,7 +38,7 @@ class EventEmitter<EventsMapped = EventMap> {
 
   off<EventName extends keyof EventsMapped & string>(
     event: EventName,
-    listener?: EventListener<EnsureArgs<EventsMapped[EventName]>>
+    listener?: EventListener<EnsureArgs<EventsMapped[EventName]>>,
   ) {
     if (!this.observers[event]) return;
     if (!listener) {
@@ -49,10 +49,7 @@ class EventEmitter<EventsMapped = EventMap> {
     this.observers[event].delete(listener);
   }
 
-  emit<EventName extends keyof EventsMapped & string>(
-    event: EventName,
-    ...args: EnsureArgs<EventsMapped[EventName]>
-  ) {
+  emit<EventName extends keyof EventsMapped & string>(event: EventName, ...args: EnsureArgs<EventsMapped[EventName]>) {
     if (this.observers[event]) {
       const cloned = Array.from(this.observers[event].entries());
       cloned.forEach(([observer, numTimesAdded]) => {

@@ -1,5 +1,5 @@
-import StoreData from "./DataStore";
-import Selector from "./Selector";
+import StoreData from './DataStore';
+import Selector from './Selector';
 
 /**
  * Maybe type.
@@ -10,7 +10,7 @@ export type Maybe<T> = T | undefined | null;
  * Setting locale explicity to `false` will not trigger to
  * load the fallbackLocale at all.
  */
-export type FallbackLocale = string|false;
+export type FallbackLocale = string | false;
 
 /**
  * Return type for string translation functions.
@@ -38,7 +38,7 @@ type ResourceValue =
 
 export interface ResourceLocale {
   [namespaceOrTranslationKey: string]: ResourceValue;
-};
+}
 
 /**
  * Resources containing the translations.

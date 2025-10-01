@@ -1,7 +1,7 @@
-import type { I18nBag, Replacements, Services, TranslatableText } from './types';
 import DataStore from './DataStore';
 import EventEmitter from './EventEmitter';
 import Selector from './Selector';
+import type { I18nBag, Replacements, Services, TranslatableText } from './types';
 
 class Translator extends EventEmitter {
   /**
@@ -34,11 +34,13 @@ class Translator extends EventEmitter {
   /**
    * Translate.
    */
-  translate<K extends string>(key: K, replaces?: Replacements, locale?: string): K|TranslatableText<K> {
+  translate<K extends string>(key: K, replaces?: Replacements, locale?: string): K | TranslatableText<K> {
     const translation = this.get(key, locale || this.i18n.currentLocale());
 
     if (typeof translation !== 'string') {
-      console.warn('linguijs: You tried to retrieve a translation object, maybe you want to try i18n.store.getResource()?');
+      console.warn(
+        'linguijs: You tried to retrieve a translation object, maybe you want to try i18n.store.getResource()?',
+      );
       return key;
     }
 
@@ -52,12 +54,19 @@ class Translator extends EventEmitter {
   /**
    * Translate based on a number.
    */
-  choice<K extends string>(key: K, number: number, replaces: Replacements = {}, locale?: string): K|TranslatableText<K> {
+  choice<K extends string>(
+    key: K,
+    number: number,
+    replaces: Replacements = {},
+    locale?: string,
+  ): K | TranslatableText<K> {
     const currentLocale = locale || this.i18n.currentLocale();
     const translation = this.get(key, currentLocale);
 
     if (typeof translation !== 'string') {
-      console.warn('linguijs: You tried to retrieve a translation object, maybe you want to try i18n.store.getResource()?');
+      console.warn(
+        'linguijs: You tried to retrieve a translation object, maybe you want to try i18n.store.getResource()?',
+      );
       return key;
     }
 
@@ -67,14 +76,12 @@ class Translator extends EventEmitter {
 
     return this.makeReplacements(
       this.selector.choose(translation, number, currentLocale),
-      replaces
+      replaces,
     ) as TranslatableText<typeof key>;
   }
 
   private get(key: string, locale: string) {
-    let data = this.store.hasResourceLocale(locale)
-      ? this.store.getDataByLocale(locale)
-      : {};
+    let data = this.store.hasResourceLocale(locale) ? this.store.getDataByLocale(locale) : {};
     /**
      * For JSON translations, there are only one level deep so we do not need to do any
      * fancy searching throught it, so we will try to access it directly first before
@@ -84,7 +91,7 @@ class Translator extends EventEmitter {
 
     // Non-existing translations and should load fallback
     const fallbackLocale = this.i18n.fallbackLocale();
-    if ((!text || (text === key)) && fallbackLocale) {
+    if ((!text || text === key) && fallbackLocale) {
       data = this.store.getDataByLocale(fallbackLocale as string);
       text = this.store.get(key, data);
     }
@@ -108,9 +115,10 @@ class Translator extends EventEmitter {
         const isCap = match === match.replace(/\w/i, (l) => l.toUpperCase());
 
         if (isCap) {
-          return value.split(' ').map(
-            word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-          ).join(' ');
+          return value
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
         }
 
         return value;

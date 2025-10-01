@@ -1,15 +1,10 @@
-import {
-  Maybe,
-  Resource,
-  ResourceLocale,
-} from "./types";
+import { Maybe, Resource, ResourceLocale } from './types';
 
 export default class DataStore {
   /**
    * Constructor.
    */
-  constructor(private data: Resource = {}) {
-  }
+  constructor(private data: Resource = {}) {}
 
   /**
    * Add a resource locale to the data store.
@@ -32,7 +27,7 @@ export default class DataStore {
    * Get the value from the data store.
    * It is based on Lodash get method.
    */
-  get<K extends string>(key: K, resourceLocale: ResourceLocale): Maybe<string|object> {
+  get<K extends string>(key: K, resourceLocale: ResourceLocale): Maybe<string | object> {
     const _get = (regExp: RegExp) =>
       String.prototype.split
         .call(key, regExp)

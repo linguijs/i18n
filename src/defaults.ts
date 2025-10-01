@@ -1,4 +1,4 @@
-import { I18nOptions } from "./types";
+import { I18nOptions } from './types';
 
 export default {
   debug: false,
