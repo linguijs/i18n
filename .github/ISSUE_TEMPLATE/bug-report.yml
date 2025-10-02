@@ -1,0 +1,22 @@
+name: Bug Report
+description: 'Submit an issue.'
+body:
+  - type: input
+    attributes:
+      label: 'JS package version'
+      description: Provide the version of `@linguijs/i18n` you are using.
+      placeholder: 2.0.0
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the problem
+      description: Explain the behavior you're seeing that you think is a bug, and describe how you expect it to behave instead.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: Provide clear steps to reproduce the issue. Include a minimal code example that clearly shows the problem.
+    validations:
+      required: true
